@@ -9,14 +9,21 @@ const listProperties4 = new TodoList("Study Javascript", "Thursday", "18:00");
 const listProperties5 = new TodoList("Chill", "Friday", "20:00");
 
 
-let myTodoList = [listProperties, listProperties2, listProperties3, listProperties4, listProperties5];
 
-localStorage.setItem("listInfo", JSON.stringify(myTodoList));
-myTodoList = JSON.parse(localStorage.getItem("listInfo"));
+
+ const initialList = [listProperties, listProperties2, listProperties3, listProperties4, listProperties5];
+ 
+ let myTodoList = JSON.parse(localStorage.getItem("listInfo")) || initialList;
+ 
+ localStorage.setItem("listInfo", JSON.stringify(myTodoList));
 
 const mainContainer = document.getElementById("app");
 
+
+function loadHtml() {
+
 myTodoList.forEach((value, i) => {
+  
 
   const orderedList  =  document.createElement("ul");
   const list = document.createElement("li");
@@ -26,16 +33,31 @@ myTodoList.forEach((value, i) => {
   orderedList.appendChild(list);
 
   app.appendChild(removeButton);
+
+  
   removeButton.innerHTML = "Click to mark as done";
 
   list.innerHTML = value.task +": " + value.day + " " + value.time;
 
+  if (value.done) {
+    list.innerHTML = "Done! &#10003;";
+  }
+
+
   removeButton.addEventListener("click", () => {
+
+    value.done = true;
+    localStorage.setItem("listInfo", JSON.stringify(myTodoList));
+
     myTodoList.splice(i, 1);
     list.innerHTML = "Done! &#10003;";
+
+    
   })
 
 });
 
+}
 
+loadHtml();
 

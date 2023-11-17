@@ -2,12 +2,14 @@ export class TodoList {
   task;
   day;
   time;
+  done;
  
 
-  constructor(task, day, time) {
+  constructor(task, day, time, done) {
     this.task = task;
     this.day = day;
     this.time = time;
+    this.done = false;
     
   }
 }
