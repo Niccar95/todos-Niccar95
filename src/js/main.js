@@ -22,36 +22,43 @@ const mainContainer = document.getElementById("app");
 
 function loadHtml() {
 
-myTodoList.forEach((value, i) => {
+myTodoList.forEach((myList) => {
   
 
-  const orderedList  =  document.createElement("ul");
+  const unorderedList  =  document.createElement("ul");
   const list = document.createElement("li");
-  const removeButton = document.createElement("button");
+  const doneButton = document.createElement("button");
+  const undoButton = document.createElement("button");
 
-  mainContainer.appendChild(orderedList);
-  orderedList.appendChild(list);
+  mainContainer.appendChild(unorderedList);
+  unorderedList.appendChild(list);
+  unorderedList.appendChild(doneButton);
+  unorderedList.appendChild(undoButton);
 
-  app.appendChild(removeButton);
+  doneButton.innerHTML = "Click to mark as done";
+  undoButton.innerHTML = "Click to undo changes";
 
-  
-  removeButton.innerHTML = "Click to mark as done";
+  list.innerHTML = myList.task +": " + myList.day + " " + myList.time;
 
-  list.innerHTML = value.task +": " + value.day + " " + value.time;
-
-  if (value.done) {
+  if (myList.done) {
     list.innerHTML = "Done! &#10003;";
   }
 
 
-  removeButton.addEventListener("click", () => {
+  doneButton.addEventListener("click", () => {
 
-    value.done = true;
+    myList.done = true;
     localStorage.setItem("listInfo", JSON.stringify(myTodoList));
-
-    myTodoList.splice(i, 1);
     list.innerHTML = "Done! &#10003;";
 
+    
+  })
+
+  undoButton.addEventListener("click", () => {
+
+    myList.done = false;
+    localStorage.setItem("listInfo", JSON.stringify(myTodoList));
+    list.innerHTML = myList.task +": " + myList.day + " " + myList.time;
     
   })
 
