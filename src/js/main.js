@@ -66,6 +66,7 @@ myTodoList.forEach((myList) => {
     myList.done = false;
     localStorage.setItem("listInfo", JSON.stringify(myTodoList));
     list.innerHTML = myList.task +" - " + myList.day + " " + myList.time;
+    
   })
 
 });

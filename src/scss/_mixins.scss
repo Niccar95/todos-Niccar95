@@ -1,0 +1,32 @@
+@mixin flex {
+  margin: 0;
+  display: flex;
+  place-items: center;
+}
+
+
+@mixin containers {
+  max-width: 1280px;
+  margin: 0 auto;
+  border: outset teal;
+  width: 60%;
+  padding: 2em;
+}
+
+@mixin buttons {
+  @content;
+}
+
+@mixin mobile {
+@media screen and (max-width: 600px) {
+    @content;
+    }
+}
+  
+@mixin desktop {
+@media screen and (max-width: 1200px) {
+  @content
+    }
+}
+  
+  
