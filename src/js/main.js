@@ -37,9 +37,24 @@ myTodoList.forEach((myList) => {
   unorderedList.appendChild(doneButton);
   unorderedList.appendChild(undoButton);
 
+  undoButton.setAttribute("id", "notHidden");
+  
   doneButton.innerHTML = "Click to mark as done";
   undoButton.innerHTML = "Click to undo changes";
-    
+  undoButton.style.color = "crimson";
+  
+  undoButton.addEventListener("mouseenter", () => {
+     undoButton.style.transitionDuration = "0.25s";
+     undoButton.style.transitionProperty = "border-color";
+     undoButton.style.borderColor = "crimson"; 
+  })
+
+  undoButton.addEventListener("mouseleave", () => {
+    undoButton.style.transitionProperty = "border-color";
+    undoButton.style.transitionDuration = "0.25s";
+    undoButton.style.borderStyle = "none";
+ })
+  
   list.innerHTML = myList.task +" - " + myList.day + " " + myList.time;
 
   if (myList.done) {

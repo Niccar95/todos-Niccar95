@@ -1,9 +1,3 @@
-@mixin flex {
-  margin: 0;
-  display: flex;
-  place-items: center;
-}
-
 
 @mixin containers {
   max-width: 1280px;
@@ -14,7 +8,17 @@
 }
 
 @mixin buttons {
-  @content;
+  color:rgba(255, 255, 255, 0.87);
+  width: 15em;
+  border-radius: 2em;
+  border: 1px solid transparent;
+  padding: 0.6em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
 }
 
 @mixin mobile {
