@@ -27,7 +27,7 @@ h1 {
     border-radius: v.$borderRadius;
     display: flex;
     flex-direction: column;
-    gap: 2em;
+    gap: v.$gap;
 
     @include mixins.mobile {
       @media screen and (max-width: 600px) {
@@ -61,14 +61,35 @@ h1 {
 
     #notHidden {
       color: crimson;
-      transition: border-color 0.25s;
-      border-style: none;
-    
     }
-
     
   }
 }
+
+form {
+  @include mixins.containers;
+  display: flex;
+  flex-direction: column;
+  gap: calc(v.$gap/2);
+
+  input {
+    padding: 0.6em 0.6em;
+    border-radius: 0.5em;
+    background-color: v.$darkColor;
+    border-style: solid;
+    color-scheme: dark;
+    transition: border-color 0.25s;
+
+    &:hover {
+      border-color: v.$darkColor2;
+    }
+
+    &:focus, &:focus-visible {
+      outline: 4px auto v.$lightColor2;
+    }
+  }
+}
+
 }
 }
 

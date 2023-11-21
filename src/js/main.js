@@ -43,18 +43,6 @@ myTodoList.forEach((myList) => {
   undoButton.innerHTML = "Click to undo changes";
   undoButton.style.color = "crimson";
   
-  undoButton.addEventListener("mouseenter", () => {
-     undoButton.style.transitionDuration = "0.25s";
-     undoButton.style.transitionProperty = "border-color";
-     undoButton.style.borderColor = "crimson"; 
-  })
-
-  undoButton.addEventListener("mouseleave", () => {
-    undoButton.style.transitionProperty = "border-color";
-    undoButton.style.transitionDuration = "0.25s";
-    undoButton.style.borderStyle = "none";
- })
-  
   list.innerHTML = myList.task +" - " + myList.day + " " + myList.time;
 
   if (myList.done) {
@@ -83,9 +71,76 @@ myTodoList.forEach((myList) => {
     list.innerHTML = myList.task +" - " + myList.day + " " + myList.time;
     
   })
+  
 
 });
 }
-
 loadHtml();
+
+
+const inputTitle = document.createElement("h1");
+inputTitle.innerHTML = "Create your own To do list";
+
+const taskInput = document.createElement("input");
+const timeInput = document.createElement("input");
+const inputForm = document.createElement("form");
+const taskLabel = document.createElement("label");
+const timeLabel = document.createElement("label");
+
+
+mainContainer.appendChild(inputForm);
+inputForm.appendChild(inputTitle);
+
+inputForm.appendChild(taskLabel);
+taskLabel.textContent = "Task:";
+taskLabel.setAttribute('for', "Task");
+
+inputForm.appendChild(taskInput);
+
+inputForm.appendChild(timeLabel);
+timeLabel.textContent = "Time:";
+timeLabel.setAttribute('for', "Time");
+
+inputForm.appendChild(timeInput);
+
+taskInput.setAttribute("type", "text");
+timeInput.setAttribute("type", "time");
+
+taskInput.setAttribute("id", "Task");
+timeInput.setAttribute("id", "Time");
+
+taskInput.setAttribute('required', '');
+timeInput.setAttribute('required', '');
+
+
+const unorderedList2  =  document.createElement("ul");
+  const list2 = document.createElement("li");
+
+  taskInput.addEventListener("keyup", writeList);
+  timeInput.addEventListener("keyup", writeList);
+
+  function writeList() {
+    inputForm.appendChild(unorderedList2);
+    unorderedList2.appendChild(list2);
+
+    list2.innerHTML = taskInput.value + " - " +  timeInput.value;
+
+  }
+  
+
+  /*clickMe.addEventListener("click", () => {
+
+    let myOtherInput = document.getElementById("myOtherInput").value;
+    let myInput = document.getElementById("myInput").value;
+    let newText = document.getElementById("newText");
+
+    newText.innerHTML = parseInt(myInput) + parseInt(myOtherInput);
+  
+  });
+
+  */
+
+
+
+
 
