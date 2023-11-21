@@ -125,11 +125,6 @@ const list2 = document.createElement("li");
     unorderedList2.appendChild(list2);
 
     const myList = [myListProperties];
-  
-    
-
-  
-
   }
   
   
