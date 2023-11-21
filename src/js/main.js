@@ -1,4 +1,4 @@
-import { TodoList } from "../models/todolist";
+import { MyTodoList, TodoList } from "../models/todolist";
 import "../scss/style.scss";
 
 const listProperties = new TodoList("Leg day at the gym", "Monday", "18:00");
@@ -19,7 +19,7 @@ const title = document.createElement("h1");
 
 mainContainer.appendChild(title);
 
-title.innerHTML = "To do list"
+title.innerHTML = "To do list";
 
 
 function loadHtml() {
@@ -82,10 +82,8 @@ const inputTitle = document.createElement("h1");
 inputTitle.innerHTML = "Create your own To do list";
 
 const taskInput = document.createElement("input");
-const timeInput = document.createElement("input");
 const inputForm = document.createElement("form");
 const taskLabel = document.createElement("label");
-const timeLabel = document.createElement("label");
 
 
 mainContainer.appendChild(inputForm);
@@ -96,51 +94,56 @@ taskLabel.textContent = "Task:";
 taskLabel.setAttribute('for', "Task");
 
 inputForm.appendChild(taskInput);
-
-inputForm.appendChild(timeLabel);
-timeLabel.textContent = "Time:";
-timeLabel.setAttribute('for', "Time");
-
-inputForm.appendChild(timeInput);
-
 taskInput.setAttribute("type", "text");
-timeInput.setAttribute("type", "time");
-
 taskInput.setAttribute("id", "Task");
-timeInput.setAttribute("id", "Time");
-
 taskInput.setAttribute('required', '');
-timeInput.setAttribute('required', '');
 
 
 const unorderedList2  =  document.createElement("ul");
-  const list2 = document.createElement("li");
+const list2 = document.createElement("li");
+
+  //Valde att skriva funktionen annorlunda denna gång
 
   taskInput.addEventListener("keyup", writeList);
-  timeInput.addEventListener("keyup", writeList);
-
+  
+  
   function writeList() {
+    
+    list2.innerHTML = taskInput.value;
+
+    const task = taskInput.value;
+
+    const myListProperties = new MyTodoList(task);
+    
+    const myOwnList = JSON.parse(localStorage.getItem("myListInfo")) || [];
+
+    myOwnList.push(myListProperties);
+
+    localStorage.setItem("myListInfo", JSON.stringify(myOwnList));
+
     inputForm.appendChild(unorderedList2);
     unorderedList2.appendChild(list2);
 
-    list2.innerHTML = taskInput.value + " - " +  timeInput.value;
+    const myList = [myListProperties];
+  
+    
+
+  
 
   }
   
-
-  /*clickMe.addEventListener("click", () => {
-
-    let myOtherInput = document.getElementById("myOtherInput").value;
-    let myInput = document.getElementById("myInput").value;
-    let newText = document.getElementById("newText");
-
-    newText.innerHTML = parseInt(myInput) + parseInt(myOtherInput);
   
-  });
+  const addListButton = document.createElement("button");
+    inputForm.appendChild(addListButton);
+    addListButton.innerHTML = "Add new task to the list";
 
-  */
+    let taskNumber = "";
 
+    addListButton.addEventListener("click", () => {
+      for (let i = 0; i < taskNumber.length; i++) {
 
+      const list3 = document.createElement("li");
+       unorderedList2.appendChild(list3);
 
-
-
+      }
+    });

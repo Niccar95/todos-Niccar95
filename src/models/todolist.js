@@ -13,3 +13,11 @@ export class TodoList {
     
   }
 }
+
+export class MyTodoList {
+  mytask;
+ 
+  constructor(myTask) {
+    this.myTask = myTask;
+  }
+} 
