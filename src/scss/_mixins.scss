@@ -1,9 +1,10 @@
 
 @mixin containers {
-  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
   margin: 0 auto;
   border: outset teal;
-  width: 60%;
   padding: 2em;
 }
 
@@ -22,13 +23,13 @@
 }
 
 @mixin mobile {
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 300px) and (max-width: 600px) {
     @content;
     }
 }
   
 @mixin desktop {
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1200px) and (min-width: 600px) {
   @content
     }
 }

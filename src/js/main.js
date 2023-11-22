@@ -8,10 +8,14 @@ const listProperties4 = new TodoList("Study Javascript", "Thursday", "18:00");
 const listProperties5 = new TodoList("Chill", "Friday", "20:00");
 
 
- const initialList = [listProperties, listProperties2, listProperties3, listProperties4, listProperties5];
- 
- let myTodoList = JSON.parse(localStorage.getItem("listInfo")) || initialList;
- 
+ let myTodoList = [listProperties, listProperties2, listProperties3, listProperties4, listProperties5];
+
+ if (localStorage.getItem("listInfo")) {
+  myTodoList = JSON.parse(localStorage.getItem("listInfo"));
+}
+
+ let myOwnList = JSON.parse(localStorage.getItem("myListInfo")) || [];
+
  localStorage.setItem("listInfo", JSON.stringify(myTodoList));
 
 const mainContainer = document.getElementById("app");
@@ -21,8 +25,70 @@ mainContainer.appendChild(title);
 
 title.innerHTML = "To do list";
 
+//Egna listan
 
 function loadHtml() {
+
+  const inputTitle = document.createElement("h3");
+  inputTitle.innerHTML = "Create your own To do list";
+
+  const taskInput = document.createElement("input");
+  const inputForm = document.createElement("form");
+  const taskLabel = document.createElement("label");
+
+  mainContainer.appendChild(inputForm);
+  inputForm.appendChild(inputTitle);
+  inputForm.appendChild(taskLabel);
+  taskLabel.textContent = "Task:";
+  taskLabel.setAttribute('for', "Task");
+  inputForm.appendChild(taskInput);
+  taskInput.setAttribute("type", "text");
+  taskInput.setAttribute("id", "Task");
+  taskInput.setAttribute('required', '');
+
+  const addListButton = document.createElement("button");
+  addListButton.innerHTML = "Add new task to the list";
+  inputForm.appendChild(addListButton);
+
+  function addTaskToList(inputValue) {
+    const myListProperties = new MyTodoList(inputValue);
+    myOwnList.push(myListProperties);
+    localStorage.setItem("myListInfo", JSON.stringify(myOwnList)); 
+    console.log(myListProperties);
+  }
+  
+
+  addListButton.addEventListener("click", () => {
+    const inputValue = taskInput.value.trim();
+
+    if (inputValue) { 
+
+      const unorderedList2 = document.createElement("ul");
+      const newListItem = document.createElement("li");
+
+      newListItem.innerHTML = inputValue;
+
+      inputForm.appendChild(unorderedList2);
+      unorderedList2.appendChild(newListItem);
+      taskInput.value = '';
+
+      addTaskToList(inputValue);
+
+      const newDoneButton = document.createElement("button");
+      unorderedList2.appendChild(newDoneButton);
+      newDoneButton.innerHTML = "Remove task";
+      
+      newDoneButton.addEventListener("click", () => {
+        unorderedList2.remove();
+      })
+
+    } else {
+      alert("Please enter a task before pressing the button!");
+    }
+
+  });
+
+//Hårdkodad lista 
 
 myTodoList.forEach((myList) => {
   
@@ -78,67 +144,5 @@ myTodoList.forEach((myList) => {
 loadHtml();
 
 
-const inputTitle = document.createElement("h1");
-inputTitle.innerHTML = "Create your own To do list";
-
-const taskInput = document.createElement("input");
-const inputForm = document.createElement("form");
-const taskLabel = document.createElement("label");
 
 
-mainContainer.appendChild(inputForm);
-inputForm.appendChild(inputTitle);
-
-inputForm.appendChild(taskLabel);
-taskLabel.textContent = "Task:";
-taskLabel.setAttribute('for', "Task");
-
-inputForm.appendChild(taskInput);
-taskInput.setAttribute("type", "text");
-taskInput.setAttribute("id", "Task");
-taskInput.setAttribute('required', '');
-
-
-const unorderedList2  =  document.createElement("ul");
-const list2 = document.createElement("li");
-
-  //Valde att skriva funktionen annorlunda denna gång
-
-  taskInput.addEventListener("keyup", writeList);
-  
-  
-  function writeList() {
-    
-    list2.innerHTML = taskInput.value;
-
-    const task = taskInput.value;
-
-    const myListProperties = new MyTodoList(task);
-    
-    const myOwnList = JSON.parse(localStorage.getItem("myListInfo")) || [];
-
-    myOwnList.push(myListProperties);
-
-    localStorage.setItem("myListInfo", JSON.stringify(myOwnList));
-
-    inputForm.appendChild(unorderedList2);
-    unorderedList2.appendChild(list2);
-
-    const myList = [myListProperties];
-  }
-  
-  
-  const addListButton = document.createElement("button");
-    inputForm.appendChild(addListButton);
-    addListButton.innerHTML = "Add new task to the list";
-
-    let taskNumber = "";
-
-    addListButton.addEventListener("click", () => {
-      for (let i = 0; i < taskNumber.length; i++) {
-
-      const list3 = document.createElement("li");
-       unorderedList2.appendChild(list3);
-
-      }
-    });
