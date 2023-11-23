@@ -94,7 +94,7 @@ function loadHtml() {
 
   });
 
-//Hårdkodad lista 
+//Hårdkodad lista. Allt fungerar fint. 
 
 myTodoList.forEach((myList, i) => {
   
