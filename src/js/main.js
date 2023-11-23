@@ -25,7 +25,7 @@ mainContainer.appendChild(title);
 
 title.innerHTML = "To do list";
 
-//Egna listan
+//Egna listan. Har inte lyckats få localstorage att spara ändringarna trots att jag har försökt flera gånger. Jag borde nog ha gjort likadant så som jag gjorde med min hårdkodade lista.
 
 function loadHtml() {
 
@@ -50,36 +50,42 @@ function loadHtml() {
   addListButton.innerHTML = "Add new task to the list";
   inputForm.appendChild(addListButton);
 
+  addListButton.classList.add("addListButton");
+
+
   function addTaskToList(inputValue) {
+
     const myListProperties = new MyTodoList(inputValue);
     myOwnList.push(myListProperties);
     localStorage.setItem("myListInfo", JSON.stringify(myOwnList)); 
-    console.log(myListProperties);
+   
   }
   
-
   addListButton.addEventListener("click", () => {
     const inputValue = taskInput.value.trim();
 
     if (inputValue) { 
 
-      const unorderedList2 = document.createElement("ul");
-      const newListItem = document.createElement("li");
+      const unorderedList = document.createElement("ul");
+      const listItem = document.createElement("li");
 
-      newListItem.innerHTML = inputValue;
+      listItem.innerHTML = inputValue;
 
-      inputForm.appendChild(unorderedList2);
-      unorderedList2.appendChild(newListItem);
+      inputForm.appendChild(unorderedList);
+      unorderedList.appendChild(listItem);
       taskInput.value = '';
 
       addTaskToList(inputValue);
 
-      const newDoneButton = document.createElement("button");
-      unorderedList2.appendChild(newDoneButton);
-      newDoneButton.innerHTML = "Remove task";
+      const removeTaskButton = document.createElement("button");
+      unorderedList.appendChild(removeTaskButton);
+      removeTaskButton.innerHTML = "Remove task";
+
+      removeTaskButton.classList.add("removeTaskButton");
+      removeTaskButton.style.backgroundColor = "crimson";
       
-      newDoneButton.addEventListener("click", () => {
-        unorderedList2.remove();
+      removeTaskButton.addEventListener("click", () => {
+        unorderedList.remove();
       })
 
     } else {
@@ -90,29 +96,45 @@ function loadHtml() {
 
 //Hårdkodad lista 
 
-myTodoList.forEach((myList) => {
+myTodoList.forEach((myList, i) => {
   
 
-  const unorderedList  =  document.createElement("ul");
-  const list = document.createElement("li");
+  const unorderedList2  =  document.createElement("ul");
+  const newListItem = document.createElement("li");
   const doneButton = document.createElement("button");
   const undoButton = document.createElement("button");
 
-  mainContainer.appendChild(unorderedList);
-  unorderedList.appendChild(list);
-  unorderedList.appendChild(doneButton);
-  unorderedList.appendChild(undoButton);
+  mainContainer.appendChild(unorderedList2);
+  unorderedList2.appendChild(newListItem);
+  unorderedList2.appendChild(doneButton);
+  unorderedList2.appendChild(undoButton);
 
+  doneButton.classList.add("doneButton");
+  undoButton.classList.add("undoButton");
   undoButton.setAttribute("id", "notHidden");
   
   doneButton.innerHTML = "Click to mark as done";
   undoButton.innerHTML = "Click to undo changes";
   undoButton.style.color = "crimson";
   
-  list.innerHTML = myList.task +" - " + myList.day + " " + myList.time;
+  newListItem.innerHTML = myList.task +" - " + myList.day + " " + myList.time;
+
+  const removeButton = document.createElement("button");
+  unorderedList2.appendChild(removeButton);
+  removeButton.innerHTML = "Remove task";
+
+  removeButton.classList.add("removeButton");
+  removeButton.style.backgroundColor = "crimson";
+
+  removeButton.addEventListener("click", () => {
+      const removeThisIndex = i;
+      myTodoList.splice(removeThisIndex, 1); 
+      localStorage.setItem("listInfo", JSON.stringify(myTodoList));
+      unorderedList2.remove();
+    });
 
   if (myList.done) {
-    list.innerHTML = "Done! &#10003;";
+    newListItem.innerHTML = "Done! &#10003;";
     doneButton.hidden = true;
     undoButton.hidden = false;
   }
@@ -126,7 +148,7 @@ myTodoList.forEach((myList) => {
     doneButton.hidden = true;
     myList.done = true;
     localStorage.setItem("listInfo", JSON.stringify(myTodoList));
-    list.innerHTML = "Done! &#10003;";
+    newListItem.innerHTML = "Done! &#10003;";
   })
 
   undoButton.addEventListener("click", () => {
@@ -134,13 +156,12 @@ myTodoList.forEach((myList) => {
     doneButton.hidden = false;
     myList.done = false;
     localStorage.setItem("listInfo", JSON.stringify(myTodoList));
-    list.innerHTML = myList.task +" - " + myList.day + " " + myList.time;
+    newListItem.innerHTML = myList.task +" - " + myList.day + " " + myList.time;
     
   })
-  
-
 });
 }
+
 loadHtml();
 
 
