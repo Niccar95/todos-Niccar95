@@ -1,0 +1,48 @@
+@use "variables" as v;
+
+
+@mixin root {
+  font-family: v.$font;
+  line-height: v.$lineHeight;
+  font-weight: v.$fontWeight-regular;
+  font-size: v.$fontSize-default;
+  color: v.$lightColor;
+  background-color: v.$darkColor;
+}
+  
+@mixin containers {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 0 auto;
+  border: outset teal;
+  padding: v.$padding;
+}
+
+@mixin buttons {
+  color: v.$lightColor;
+  width: 15em;
+  border-radius: 2em;
+  border: 1px solid transparent;
+  padding: 0.6em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #131313;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+@mixin mobile {
+@media screen and (min-width: 300px) and (max-width: 600px) {
+    @content;
+    }
+}
+  
+@mixin desktop {
+@media screen and (max-width: 1200px) and (min-width: 600px) {
+  @content
+    }
+}
+  
+  

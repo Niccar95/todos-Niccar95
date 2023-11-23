@@ -1,0 +1,157 @@
+@use "variables" as v;
+@use "mixins";
+
+:root {
+  @include mixins.root;
+
+body {
+  
+  #app {
+    @include mixins.containers;
+
+    h1 {
+      text-align: center;
+      font-size: 3em;
+    }
+      
+
+    form {
+
+      border-radius: v.$borderRadius;
+      @include mixins.mobile {
+        @media screen and (min-width: 300px) and (max-width: 600px) {
+         align-items: center;
+        }
+      }
+    
+    @include mixins.containers;
+      display: flex;
+      flex-direction: column;
+      gap: calc(v.$gap/2);
+    
+      h3 {
+        text-align: center;
+      }
+    
+      input {
+        padding: 0.6em 0.6em;
+        border-radius: 0.5em;
+        background-color: v.$darkColor;
+        border-style: solid;
+        color-scheme: dark;
+        transition: border-color 0.25s;
+    
+        &:hover {
+          border-color: v.$darkColor2;
+        }
+    
+        &:focus, &:focus-visible {
+          outline: 4px auto v.$lightColor2;
+        }
+      }
+    
+      .addListButton {
+        @include mixins.buttons;
+    
+        @include mixins.mobile {
+            @media screen and (min-width: 300px) and (max-width: 600px) {
+                max-width: 8em;
+            }
+          }
+          
+            @include mixins.desktop {
+              @media screen and (max-width: 1200px) and (min-width: 600px) {
+                  width: 12em;
+              }
+            }
+        
+        &:hover {
+          border-color: v.$darkColor2;
+        }
+    
+        &:focus, &:focus-visible {
+          outline: 4px auto v.$lightColor2;
+        }
+      }
+
+      .removeTaskButton {
+        @include mixins.buttons;
+        background-color: crimson;
+
+        &:hover {
+          border-color: v.$darkColor2;
+        }
+    
+        &:focus, &:focus-visible {
+          outline: 4px auto v.$lightColor2;
+        }
+  
+      }
+
+    }
+  
+  ul {
+    font-size: v.$fontSize-default;
+    border: outset teal;
+    padding: v.$padding;
+    border-radius: v.$borderRadius;
+    display: flex;
+    flex-direction: column;
+    gap: v.$gap;
+
+    @include mixins.mobile {
+      @media screen and (min-width: 300px) and (max-width: 600px) {
+       align-items: center;
+      }
+    }
+    
+    .doneButton, .undoButton {
+      @include mixins.buttons;
+
+      @include mixins.mobile {
+        @media screen and (min-width: 300px) and (max-width: 600px) {
+            max-width: 10em;
+        }
+      }
+      
+        @include mixins.desktop {
+          @media screen and (max-width: 1200px) and (min-width: 600px) {
+              width: 18em;
+          }
+        }
+   
+    &:hover {
+      border-color: v.$darkColor2;
+    }
+
+    &:focus, &:focus-visible {
+      outline: 4px auto v.$lightColor2;
+    }
+
+    #notHidden {
+      color: crimson;
+    } 
+  }
+  
+  .removeButton {
+    @include mixins.buttons;
+    background-color: crimson;
+    color: whitesmoke;
+
+    &:hover {
+      border-color: v.$darkColor2;
+    }
+
+    &:focus, &:focus-visible {
+      outline: 4px auto v.$lightColor2;
+    }
+  }
+
+}
+}
+}
+}
+
+
+      
+  
